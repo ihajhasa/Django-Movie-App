@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block middlecolumn %}
+
+{% if user %}
+<div style="padding-top: 20px;">
+    <div class="page-header" align="center"> <h1> My Info </h1> </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" value={{ user.username }} readonly>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" value={{ user.email }} readonly>
+    </div>
+</div>
+
+
+{% endif %}
+
+{% endblock %}

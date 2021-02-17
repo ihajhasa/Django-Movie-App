@@ -1,0 +1,44 @@
+<!doctype html>
+
+<!-- taken from Bootstrap starter template modified by:
+        Ishaq Haj Hasan
+-->
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+
+  <body>
+
+  {% include 'navbar.html' %}
+
+  {% if message %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3"></div>
+
+      <div class="col-lg-6">
+        <div class="alert alert-danger">{{ message }}</div>
+      </div>
+
+      <div class="col-lg-3"></div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-3">{% block leftcolumn %} {% endblock %}</div>
+          <div class="col-lg-6" style="margin-top=10px;">{% block middlecolumn %} {% endblock %}</div>
+          <div class="col-lg-3">{% block rightcolumn %} {% endblock %}</div>
+      </div>
+  </div>
+  </body>
+
+</html>

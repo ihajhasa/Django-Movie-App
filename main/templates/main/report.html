@@ -1,0 +1,97 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Report
+{% endblock %}
+
+{% block middlecolumn %}
+
+{% if report %}
+
+<div class="page-header" align="center"> <h1> Report </h1> </div>
+
+<table class="table">
+    <tr>
+        <th scope="row">Number of Movies</th>
+        <td>{{ report.num_movies }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Number of Users</th>
+        <td>{{ report.num_users }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Number of Movie Parties</th>
+        <td>{{ report.num_movieparties }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Number of Users Per Movie Parties</th>
+        <td>{{ report.avg_num_users_per_party }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Number of Rflix Ratings</th>
+        <td>{{ report.rflix_num_ratings }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Total Number of Ratings</th>
+        <td>{{ report.total_num_ratings }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Rflix Average Number of Ratings Per Movie</th>
+        <td>{{ report.rflix_avg_num_ratings_per_movie }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Total Average Number of Ratings Per Movie</th>
+        <td>{{ report.total_avg_num_ratings_per_movie }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Average Number of Ratings Per User</th>
+        <td>{{ report.avg_num_ratings_per_user }}</td>
+    </tr>
+
+</table>
+
+<br>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h6 align="center">Top 10 Users</h6>
+        <p align="center">(highest number of ratings)</p>
+        <ol>
+        {% for user in report.top_10_users_ratings_number %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+        </ol>
+    </div>
+    <div class="col-lg-6">
+        <h6 align="center">Top 10 Users</h6>
+        <p align="center">(movie party memberships)</p>
+        <ol>
+        {% for user in report.top_10_users_movieparty_membership %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+<!--
+class Report:
+    def __init__(self, num_movies, num_users, rflix_num_ratings, total_num_ratings,
+                 rflix_avg_num_ratings_per_movie, total_avg_num_ratings_per_movie,
+                 avg_num_ratings_per_user, top_10_users_ratings_number, num_movieparties,
+                 avg_num_users_per_party, top_10_users_movieparty_membership):
+        self.num_movies = num_movies
+        self.num_users = num_users
+        self.rflix_num_ratings = rflix_num_ratings
+        self.total_num_ratings = total_num_ratings
+        self.rflix_avg_num_ratings_per_movie = rflix_avg_num_ratings_per_movie
+        self.total_avg_num_ratings_per_movie = total_avg_num_ratings_per_movie
+        self.avg_num_ratings_per_user = avg_num_ratings_per_user
+        self.top_10_users_ratings_number = top_10_users_ratings_number
+        self.num_movieparties = num_movieparties
+        self.avg_num_users_per_party = avg_num_users_per_party
+        self.top_10_users_movieparty_membership = top_10_users_movieparty_membership
+-->

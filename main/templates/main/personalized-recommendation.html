@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Recommended Movies
+{% endblock %}
+
+{% block middlecolumn %}
+
+<div class="page-header" align="center"> <h1> Recommendations </h1> </div>
+
+{% for ratedmovie in recommendations %}
+    <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+          <h5 align="center">{{ ratedmovie.movie.title }}</h5>
+          <h6 align="center">({{ ratedmovie.movie.year }})</h6>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Global Rating</p>
+              <p align="center">{{ ratedmovie.movie.rating }}</p>
+            </div>
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Clan Score</p>
+              <p align="center">{{ ratedmovie.userscore }}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

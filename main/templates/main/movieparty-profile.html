@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Movie Party {{ movieparty_profile.movieparty.id }}
+{% endblock %}
+
+{% block middleleftcolumn %}
+<div class="card">
+    <div class="card-info">
+        <h5>Party Info</h5>
+        <h6>Party Number: {{ movieparty_profile.movieparty.id }}</h6>
+        <h6>Founded by: {{ movieparty_profile.movieparty.createdby }}</h6>
+    </div>
+    {% if movieparty_profile.showjoin %}
+        <button type="button" class="btn btn-success" onclick="location.href='{% url 'joinmovieparty' movieparty_profile.movieparty.id %}'">Join Party</button>
+    {% endif %}
+    {% if movieparty_profile.showleave %}
+        <button type="button" class="btn btn-danger" onclick="location.href='{% url 'leavemovieparty' movieparty_profile.movieparty.id %}'">Leave Party</button>
+    {% endif %}
+    {% if movieparty_profile.showdelete %}
+        <button type="button" class="btn btn-danger" onclick="location.href='{% url 'deletemovieparty' movieparty_profile.movieparty.id %}'">Delete Party</button>
+    {% endif %}
+</div>
+<br>
+<h5 align="center" >Recommendations</h5>
+{% for ratedmovie in recommendations %}
+    <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+          <h5 align="center">{{ ratedmovie.movie.title }}</h5>
+          <h6 align="center">({{ ratedmovie.movie.year }})</h6>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Global Rating</p>
+              <p align="center">{{ ratedmovie.movie.rating }}</p>
+            </div>
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Clan Score</p>
+              <p align="center">{{ ratedmovie.userscore }}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block middlerightcolumn %}
+<h5>Members</h5>
+<ul>
+{% for member in memberlist %}
+    <li>{{ member }}</li>
+{% endfor %}
+{% endblock %}
+</ul>

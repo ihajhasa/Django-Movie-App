@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Movies
+{% endblock %}
+
+
+{% block middleleftcolumn %}
+<div style="padding-top: 20px;">
+  <div class="page-header" align="center"> <h1> Rated Movies </h1> </div>
+
+  {% if rated_movies %}
+    {% for ratedmovie in rated_movies %}
+      <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+          <h5 align="center">{{ ratedmovie.movie.title }}</h5>
+          <h6 align="center">({{ ratedmovie.movie.year }})</h6>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Global Rating</p>
+              <p align="center">{{ ratedmovie.movie.rating }}</p>
+            </div>
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Num. Rating</p>
+              <p align="center">{{ ratedmovie.movie.nratings }}</p>
+            </div>
+          </div>
+          <form method="post" action="{% url 'rate' %}" align="center">
+            {% csrf_token %}
+            <label for="movieratingslider" align="center">Rate Movie</label>
+            <input type="hidden" name="id" value="{{ ratedmovie.movie.id }}">
+            <input type="range" class="custom-range" min="1" max="5" id="movieratingslider" name="rating" value="{{ ratedmovie.userscore }}" onchange="this.form.submit()" align="center">
+          </form>
+
+          <form action="{% url 'deleterating' ratedmovie.movie.id %}">
+            <button type="submit" class="btn btn-danger" name="deleterating" >Delete Rating</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h4> No Rated Movies </h4>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block middlerightcolumn %}
+<div style="padding-top: 20px;">
+  <div class="page-header" align="center"> <h1> Unrated Movies </h1> </div>
+
+  {% if unrated_movies %}
+    {% for movie in unrated_movies %}
+      <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+          <h5 align="center">{{ movie.title }}</h5>
+          <h6 align="center">({{ movie.year }})</h6>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Global Rating</p>
+              <p align="center">{{ movie.rating }}</p>
+            </div>
+            <div class="col-lg-6">
+              <p style="font-weight:bold;" align="center">Num. Rating</p>
+              <p align="center">{{ movie.nratings }}</p>
+            </div>
+          </div>
+          <form method="post" action="{% url 'rate' %}" align="center">
+            {% csrf_token %}
+            <label for="movieratingslider" align="center">Rate Movie</label>
+            <input type="hidden" name="id" value="{{ movie.id }}">
+            <input type="range" class="custom-range" min="0" max="5" id="movieratingslider" name="rating" value="0" onchange="this.form.submit()" align="center">
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h4> No Rated Movies </h4>
+  {% endif %}
+
+</div>
+{% endblock %}

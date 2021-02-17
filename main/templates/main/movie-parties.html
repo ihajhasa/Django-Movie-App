@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Movie Parties
+{% endblock %}
+
+{% block topmiddleleftcolumn %}
+    <div>
+    <button type="button" class="btn btn-success" onclick="location.href='{% url 'createmovieparty' %}'">Create Party</button>
+    </div>
+{% endblock %}
+
+{% block middleleftcolumn %}
+
+<div class="page-header" align="center"> <h1> Joined Movie Parties </h1> </div>
+<br>
+
+{% if joined_movie_parties %}
+    {% for movieparty in joined_movie_parties %}
+      <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+            <h5 align="center">Party Number: {{ movieparty.movieparty.id }}</h5>
+            <h6 align="center">Number of members: ({{ movieparty.stats.nummembers }})</h6>
+            <h6 align="center">Founded By: {% if movieparty.stats.founder %} {{ movieparty.stats.founder.username }} {% else %} [deleted] {% endif %}</h6>
+        </div>
+          <button type="button" class="btn btn-primary" onclick="location.href='{% url 'moviepartyprofile' movieparty.movieparty.id %}'">Party Profile</button>
+          <br>
+          {% if movieparty.showleave %}
+            <button type="button" class="btn btn-danger" onclick="location.href='{% url 'leavemovieparty' movieparty.movieparty.id %}'">Leave Party</button>
+          {% endif %}
+          {% if movieparty.showdelete %}
+            <button type="button" class="btn btn-danger" onclick="location.href='{% url 'deletemovieparty' movieparty.movieparty.id %}'">Delete Party</button>
+          {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <h4 align="center"> No Movie Parties </h4>
+  {% endif %}
+
+{% endblock %}
+
+
+{% block middlerightcolumn %}
+
+<div class="page-header" align="center"> <h1> Other Movie Parties </h1> </div>
+<br>
+
+{% if unjoined_movie_parties %}
+    {% for movieparty in unjoined_movie_parties %}
+      <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+
+            <h5 align="center">Party Number: {{ movieparty.movieparty.id }}</h5>
+            <h6 align="center">Number of members: ({{ movieparty.stats.nummembers }})</h6>
+            <h6 align="center">Founded By: {% if movieparty.stats.founder %} {{ movieparty.stats.founder.username }} {% else %} [deleted] {% endif %}</h6>
+        </div>
+          <button type="button" class="btn btn-primary" onclick="location.href='{% url 'moviepartyprofile' movieparty.movieparty.id %}'">Party Profile</button>
+          <br>
+          {% if movieparty.showjoin %}
+            <button type="button" class="btn btn-success" onclick="location.href='{% url 'joinmovieparty' movieparty.movieparty.id %}'">Join Party</button>
+          {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <h4 align="center"> No Movie Parties </h4>
+  {% endif %}
+
+{% endblock %}
+
